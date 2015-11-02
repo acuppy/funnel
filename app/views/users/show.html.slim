@@ -1,0 +1,31 @@
+.row
+  .row
+    .avatar.small-4.columns
+  .row
+    .headline
+      h1.fullname = @user.fullname
+  - if @notice.present?
+    .row
+      .small-4.push-4.columns.alert-box.success.radius data-alert=true
+        p.notice
+          = @notice
+        a.close href="#"
+          | &times;
+  .row
+    = form_for @submitter, url: submissions_path, html: { id: "submitter-form", class: nil } do |f|
+      .row
+        .small-4.push-4.columns
+          = f.label :fullname do
+            = f.text_field :fullname, placeholder: "Your name?", class: 'contact-field'
+      .row
+        .small-4.push-4.columns
+          = f.label :email do
+            = f.text_field :email, placeholder: "Your email?", class: 'contact-field'
+      .row
+        .small-4.push-4.columns
+          = f.submit "Send", class: "button round expand small"
+
+javascript:
+  $(function(){
+    $('.avatar').css('background', "url(#{@user.gravatar_url}) no-repeat")
+  });
