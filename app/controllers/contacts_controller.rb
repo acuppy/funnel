@@ -3,7 +3,8 @@ class ContactsController < ApplicationController
     @contact = collector.contacts.build contact_params
 
     if @contact.save
-      flash[:notice] = "Thank you!"
+      flash[:notice] =
+        "Thank you! You will receive an email with my contact info shortly."
       redirect_to user_page_path username: username
     end
   end

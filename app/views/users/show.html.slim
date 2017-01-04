@@ -1,31 +1,37 @@
 .row
   .row
-    .avatar.small-4.columns
-  .row
     .headline
-      h1.fullname = @user.fullname
+      h1.fullname Let's stay in touch...
   - if @notice.present?
     .row
-      .small-4.push-4.columns.alert-box.success.radius data-alert=true
-        p.notice
+      .small-8.push-2.columns.alert-box.success.radius data-alert=true
+        p.notice style='text-align: center; margin-button: 0px'
           = @notice
         a.close href="#"
           | &times;
   .row
     = form_for @submitter, url: submissions_path, html: { id: "submitter-form", class: nil } do |f|
       .row
-        .small-4.push-4.columns
+        .small-8.push-2.columns
           = f.label :fullname do
-            = f.text_field :fullname, placeholder: "Your name?", class: 'contact-field'
+            = f.text_field :fullname, placeholder: "Name", class: 'contact-field'
       .row
-        .small-4.push-4.columns
+        .small-8.push-2.columns
           = f.label :email do
-            = f.text_field :email, placeholder: "Your email?", class: 'contact-field'
+            = f.text_field :email, placeholder: "Email address", class: 'contact-field'
       .row
-        .small-4.push-4.columns
-          = f.submit "Send", class: "button round expand small"
+        .small-8.push-2.columns
+          = f.label :phone do
+            = f.text_field :phone, placeholder: "Phone number", class: 'contact-field'
+      .row
+        .small-8.push-2.columns
+          = f.submit "Submit", class: "button success small"
+          = button_tag "Cancel", class: "button small cancel-btn"
 
-javascript:
-  $(function(){
-    $('.avatar').css('background', "url(#{@user.gravatar_url}) no-repeat")
-  });
+  javascript:
+    $(function(){
+      $('button.cancel-btn').on('click', function(e){
+        e.preventDefault()
+        $('input.contact-field').val('')
+      })
+    });
